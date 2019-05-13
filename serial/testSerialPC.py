@@ -11,11 +11,12 @@ baud = 115200  # that is the default to talk with microbit
 s = serial.Serial(port)
 s.baudrate = 115200
 refresh_serial = 1000
-prev_milli_time = lambda: int(round(time.time() * 1000))
+current_milli_time = lambda: int(round(time.time() * 1000))
+prev_milli = current_milli_time()
 
 while True:
-    current_milli_time = lambda: int(round(time.time() * 1000))
-    if current_milli_time - prev_milli_time > refresh_serial:
+    current_milli = current_milli_time()
+    if current_milli - prev_milli  > refresh_serial:
         current_milli_time = lambda: int(round(time.time() * 1000))
         # if there is any incoming communication
         while s.in_waiting:
